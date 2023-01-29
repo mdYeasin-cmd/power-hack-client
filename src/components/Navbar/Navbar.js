@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -7,14 +7,24 @@ const Navbar = () => {
             {/* navbar */}
             <nav className="flex justify-between bg-gray-900 text-white w-full">
                 <div className="px-5 xl:px-12 py-4 flex justify-between  w-full items-center">
-                    <a className="text-3xl font-bold font-heading" href="/">
+                    <Link className="text-3xl font-bold font-heading" to="/">
                         Power Hack
-                    </a>
+                    </Link>
                     {/* Nav Links */}
-                    <ul className="hidden md:flex px-4 font-semibold font-heading space-x-12">
+                    <ul className="hidden md:flex px-4 font-semibold font-heading space-x-4 items-center">
+                        <li className="mr-10  ">
+                            <NavLink to="/billingPage">
+                                Go To Billing Page
+                            </NavLink>
+                        </li>
                         <li>
                             <NavLink to="/login">
                                 <button className="bg-[#51DBDC] py-2 px-5 text-xl rounded-lg border-0">Log In</button>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/signup">
+                                <button className="bg-[#51DBDC] py-2 px-5 text-xl rounded-lg border-0">Sign Up</button>
                             </NavLink>
                         </li>
                     </ul>
