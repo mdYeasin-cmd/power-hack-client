@@ -6,6 +6,13 @@ import Layout from '../Layout/Layout';
 const BillingPage = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+    const [billingList, setBillingList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/billing-list')
+            .then(res => res.json())
+            .then(data => setBillingList(data));
+    }, []);
 
     return (
         <Layout>
@@ -29,7 +36,20 @@ const BillingPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="border-b">
+                            {
+                                billingList.map(billingListItem => <tr key={billingListItem._id} className="border-b">
+                                <td className="border-r">{billingListItem._id}</td>
+                                <td className="border-r">{billingListItem.name}</td>
+                                <td className="border-r">{billingListItem.email}</td>
+                                <td className="border-r">{billingListItem.phone}</td>
+                                <td className="border-r">{billingListItem.address}</td>
+                                <td className="border-r">{billingListItem.paidAamount}</td>
+                                <td>
+                                    <button>Delete</button>
+                                </td>
+                            </tr>)
+                            }
+                            {/* <tr className="border-b">
                                 <td className="border-r">Cy Ganderton</td>
                                 <td className="border-r">Quality Control Specialist</td>
                                 <td className="border-r">yeasin200011@gmail.com</td>
@@ -37,7 +57,7 @@ const BillingPage = () => {
                                 <td className="border-r">Quality Control Specialist</td>
                                 <td className="border-r">Blue</td>
                                 <td>Blue</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>
