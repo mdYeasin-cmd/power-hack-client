@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const BillingFormModal = ({ setIsOpen }) => {
+const BillingFormModal = () => {
 
     const handleBillingInfo = (event) => {
         event.preventDefault();
@@ -13,7 +13,24 @@ const BillingFormModal = ({ setIsOpen }) => {
         const paidAamount = form.paidAamount.value;
         console.log(name, email, phone, address, paidAamount);
 
-        
+        const billingInfo = {
+            name,
+            email,
+            phone,
+            address,
+            paidAamount
+        }
+
+        fetch('http://localhost:5000/add-billing', {
+            method: 'POST',
+            body: JSON.stringify(billingInfo),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
 
     }
 
