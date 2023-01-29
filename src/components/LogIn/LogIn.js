@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 
 const LogIn = () => {
@@ -38,6 +39,14 @@ const LogIn = () => {
                         />
                     </div>
                 </form>
+
+                <div className="divider my-5">OR</div>
+
+                <div>
+                    <p className="text-center mt-3 text-lg">
+                        <small>Don't have an account? <Link className="text-blue-900" to="/signup">Sign Up</Link></small>
+                    </p>
+                </div>
             </div>
         </Layout>
     );
