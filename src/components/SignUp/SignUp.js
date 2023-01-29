@@ -3,12 +3,26 @@ import { Link } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 
 const SignUp = () => {
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value
+
+        console.log(name, email, password);
+
+    }
+
     return (
         <Layout>
             <div>
                 <div className="w-2/5 mx-auto shadow-2xl p-8 my-10 rounded-lg">
                     <h2 className="text-3xl w-4/12 mx-auto py-2 rounded-lg font-semibold text-center bg-[#51DBDC] bg-opacity-50">Sign Up</h2>
-                    <form>
+
+                    <form onSubmit={handleSubmit}>
 
                         <div className="form-control w-full">
                             <label className="label">
