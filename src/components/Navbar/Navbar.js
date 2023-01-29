@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -11,14 +12,11 @@ const Navbar = () => {
                     </a>
                     {/* Nav Links */}
                     <ul class="hidden md:flex px-4 font-semibold font-heading space-x-12">
-                        {/* <li><a class="hover:text-gray-200" href="/">Lo</a></li>
-                        <li><a class="hover:text-gray-200" href="/">Catagory</a></li>
-                        <li><a class="hover:text-gray-200" href="/">Collections</a></li>
-                        <li><a class="hover:text-gray-200" href="/">Contact Us</a></li> */}
                         <li>
-                            <button className="bg-[#51DBDC] py-2 px-5 text-xl rounded-lg border-0">Log In</button>
+                            <NavLink to="/login">
+                                <button className="bg-[#51DBDC] py-2 px-5 text-xl rounded-lg border-0">Log In</button>
+                            </NavLink>
                         </li>
-                        
                     </ul>
                 </div>
                 {/* Responsive navbar */}
