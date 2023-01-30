@@ -12,7 +12,7 @@ const BillingPage = () => {
     const [payBill, setPayBill] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:5000/billing-list')
+        fetch('https://power-hack-server-eight.vercel.app/billing-list')
             .then(res => res.json())
             .then(data => {
                 setBillingList(data);
@@ -23,7 +23,7 @@ const BillingPage = () => {
     const handleBillingInfo = (event) => {
         event.preventDefault();
 
-        fetch('http://localhost:5000/add-billing', {
+        fetch('https://power-hack-server-eight.vercel.app/add-billing', {
             method: 'POST',
             body: JSON.stringify(payBill),
             headers: {
@@ -37,7 +37,7 @@ const BillingPage = () => {
     }
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/delete-billing/${id}`, {
+        fetch(`https://power-hack-server-eight.vercel.app/delete-billing/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
