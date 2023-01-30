@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import BillingFormModal from '../BillingFormModal/BillingFormModal';
 import FindAndAddBill from '../FindAndAddBill/FindAndAddBill';
 import Layout from '../Layout/Layout';
@@ -47,7 +48,8 @@ const BillingPage = () => {
     }
 
     const handleUpdate = (id) => {
-        console.log("Update Button");
+        setIsOpen(true);
+        console.log("Update Button", id);
     }
 
     return (
@@ -81,9 +83,10 @@ const BillingPage = () => {
                                     <td className="border-r">{billingListItem.address}</td>
                                     <td className="border-r">{billingListItem.paidAamount}</td>
                                     <td>
-                                        <button onClick={() => handleUpdate(billingListItem?._id)}>Update</button> ||
-                                        {/* <button className="ml-1" onClick={() => handleDelete(billingListItem?._id)}>Delete</button> */}
-                                        <label htmlFor="my-modal" onClick={() => setIsOpen(true)}>Update</label>
+                                        <Link to="/updateBillingInfo">
+                                            <button onClick={() => handleUpdate(billingListItem)}>Update</button>
+                                        </Link> ||
+                                        <button className="ml-1" onClick={() => handleDelete(billingListItem?._id)}>Delete</button>
                                     </td>
                                 </tr>)
                             }
