@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import BillingFormModal from '../BillingFormModal/BillingFormModal';
 import FindAndAddBill from '../FindAndAddBill/FindAndAddBill';
 import Layout from '../Layout/Layout';
@@ -7,12 +8,47 @@ const BillingPage = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [billingList, setBillingList] = useState([]);
+    const [payBill, setPayBill] = useState({});
 
     useEffect(() => {
         fetch('http://localhost:5000/billing-list')
             .then(res => res.json())
-            .then(data => setBillingList(data));
-    }, []);
+            .then(data => {
+                setBillingList(data);
+            })
+            .catch(error => console.log(error));
+    }, [payBill, billingList]);
+
+    const handleBillingInfo = (event) => {
+        event.preventDefault();
+
+        fetch('http://localhost:5000/add-billing', {
+            method: 'POST',
+            body: JSON.stringify(payBill),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+
+    }
+
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/delete-billing/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('Deleted Successfully.')
+            })
+            .catch(error => console.log(error));
+    }
+
+    const handleUpdate = (id) => {
+        console.log("Update Button");
+    }
 
     return (
         <Layout>
@@ -38,32 +74,30 @@ const BillingPage = () => {
                         <tbody>
                             {
                                 billingList.map(billingListItem => <tr key={billingListItem._id} className="border-b">
-                                <td className="border-r">{billingListItem._id}</td>
-                                <td className="border-r">{billingListItem.name}</td>
-                                <td className="border-r">{billingListItem.email}</td>
-                                <td className="border-r">{billingListItem.phone}</td>
-                                <td className="border-r">{billingListItem.address}</td>
-                                <td className="border-r">{billingListItem.paidAamount}</td>
-                                <td>
-                                    <button>Delete</button>
-                                </td>
-                            </tr>)
+                                    <td className="border-r">{billingListItem?._id}</td>
+                                    <td className="border-r">{billingListItem.name}</td>
+                                    <td className="border-r">{billingListItem.email}</td>
+                                    <td className="border-r">{billingListItem.phone}</td>
+                                    <td className="border-r">{billingListItem.address}</td>
+                                    <td className="border-r">{billingListItem.paidAamount}</td>
+                                    <td>
+                                        <button onClick={() => handleUpdate(billingListItem?._id)}>Update</button> ||
+                                        {/* <button className="ml-1" onClick={() => handleDelete(billingListItem?._id)}>Delete</button> */}
+                                        <label htmlFor="my-modal" onClick={() => setIsOpen(true)}>Update</label>
+                                    </td>
+                                </tr>)
                             }
-                            {/* <tr className="border-b">
-                                <td className="border-r">Cy Ganderton</td>
-                                <td className="border-r">Quality Control Specialist</td>
-                                <td className="border-r">yeasin200011@gmail.com</td>
-                                <td className="border-r">Cy Ganderton</td>
-                                <td className="border-r">Quality Control Specialist</td>
-                                <td className="border-r">Blue</td>
-                                <td>Blue</td>
-                            </tr> */}
                         </tbody>
                     </table>
                 </div>
             </div>
             {
-                isOpen && <BillingFormModal setIsOpen={setIsOpen} />
+                isOpen && <BillingFormModal
+                    payBill={payBill}
+                    setPayBill={setPayBill}
+                    setIsOpen={setIsOpen}
+                    handleBillingInfo={handleBillingInfo}
+                />
             }
         </Layout>
     );

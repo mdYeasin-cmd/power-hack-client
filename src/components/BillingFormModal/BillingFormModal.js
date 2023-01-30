@@ -1,37 +1,15 @@
 import React from 'react';
 
-const BillingFormModal = () => {
+const BillingFormModal = ({payBill, setPayBill, handleBillingInfo}) => {
 
-    const handleBillingInfo = (event) => {
-        event.preventDefault();
+    const handleInputBlur = event => {
+        const value = event.target.value;
+        const field = event.target.name;
+        const paidBillInfo = {...payBill};
+        console.log(paidBillInfo);
+        paidBillInfo[field] = value;
 
-        const form = event.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const phone = form.phone.value;
-        const address = form.address.value;
-        const paidAamount = form.paidAamount.value;
-        console.log(name, email, phone, address, paidAamount);
-
-        const billingInfo = {
-            name,
-            email,
-            phone,
-            address,
-            paidAamount
-        }
-
-        fetch('http://localhost:5000/add-billing', {
-            method: 'POST',
-            body: JSON.stringify(billingInfo),
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
-
+        setPayBill(paidBillInfo);
     }
 
     return (
@@ -50,6 +28,7 @@ const BillingFormModal = () => {
                                     <span className="label-text">Full Name</span>
                                 </label>
                                 <input
+                                    onChange={handleInputBlur}
                                     type="text"
                                     name="name"
                                     className="input input-bordered w-full"
@@ -61,6 +40,7 @@ const BillingFormModal = () => {
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input
+                                    onChange={handleInputBlur}
                                     type="email"
                                     name="email"
                                     className="input input-bordered w-full"
@@ -72,6 +52,7 @@ const BillingFormModal = () => {
                                     <span className="label-text">Phone</span>
                                 </label>
                                 <input
+                                    onChange={handleInputBlur}
                                     type="text"
                                     name="phone"
                                     className="input input-bordered w-full"
@@ -83,6 +64,7 @@ const BillingFormModal = () => {
                                     <span className="label-text">Address</span>
                                 </label>
                                 <input
+                                    onChange={handleInputBlur}
                                     type="text"
                                     name="address"
                                     className="input input-bordered w-full"
@@ -94,6 +76,7 @@ const BillingFormModal = () => {
                                     <span className="label-text">Paid Amount</span>
                                 </label>
                                 <input
+                                    onChange={handleInputBlur}
                                     type="text"
                                     name="paidAamount"
                                     className="input input-bordered w-full"

@@ -9,8 +9,6 @@ const FindAndAddBill = ({ setIsOpen }) => {
             <div>
                 <label htmlFor="my-modal" onClick={() => setIsOpen(true)} className="btn bg-[#51DBDC] border-0 mr-4">Add New Bill</label>
             </div>
-            {/* Put this part before </body> tag */}
-
         </div>
     );
 };
